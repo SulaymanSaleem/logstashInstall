@@ -8,5 +8,11 @@ echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee 
 sudo apt-get update && sudo apt-get install logstash
 
 echo "###### COPYING S3 conf file to directory #######"
-cp s3_input.conf /etc/logstash/conf.d/
+sudo cp s3_input.conf /etc/logstash/conf.d/
+sudo cp logstash.service /etc/systemd/system/
 
+echo "######### STARTING LOGSTASH ############"
+sudo systemctl start logstash
+sudo systemctl daemon-reload
+tail -f /var/log/logstash/logstash-plain.log
+ 
